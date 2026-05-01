@@ -194,6 +194,7 @@
             <div class="form-group pt-2">
                 <button type="button" class="btn btn-primary btn-sm m-2" id="save-digest" data-id="{{$digest->id}}"></i>Сохранить дайджест</button>
                 <button type="button" class="btn btn-primary btn-sm m-2" data-toggle="modal" data-target="#modal"><i class="fa fa-envelope"></i></button>
+                <button type="button" class="btn btn-danger btn-sm m-2 delete-digest-btn" data-id="{{ $digest->id }}"><i class="fa fa-trash"></i> Удалить</button>
             </div>
             <div class="form-group">
                 <label>Заголовок письма</label>
@@ -218,7 +219,7 @@
                 <!-- Header -->
                 <tr class="header">
                     <td bgcolor="#ffffff">
-                        <img height="57" class="header-img" src="https://digest.vds.group/img/env-grey.png" alt="ТЭК еженедельный дайджест VDS">
+                        <img height="57" class="header-img" src="{{ asset('storage/photos/env-grey.png') }}" alt="ТЭК еженедельный дайджест VDS">
                     </td>
                 </tr>
                 <tr>
@@ -230,7 +231,7 @@
                                 <td>
                                     <table id="articles" border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
-                                            <td width="40px"><img width="11px" src="https://digest.vds.group/img/arrow.png"></td>
+                                            <td width="40px"><img width="11px" src="{{ asset('storage/photos/arrow.png') }}"></td>
                                             <td><p class="article">Lorem Ipsum</p></td>
                                         </tr>
                                     </table>
@@ -242,7 +243,7 @@
                                 <td id="excerts" style="padding-top: 30px">
                                     <p class="excert-header">Lorem Ipsum</p>
                                     <p class="excert">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at bibendum nibh. Vestibulum in lorem mollis, aliquet velit id, semper ante. Nunc ultrices lacus sed lectus ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vulputate justo nulla, a finibus augue auctor a. Integer consectetur aliquet diam, ut facilisis diam viverra in.</p>
-                                    <p class="excert-link"><a href=""><img height="25px" src="https://digest.vds.group/img/detail-env.png" alt="Подробнее"></a></p>
+                                    <p class="excert-link"><a href=""><img height="25px" src="{{ asset('storage/photos/detail-env.png') }}" alt="Подробнее"></a></p>
                                 </td>
                             </tr>
                         </table>
@@ -388,7 +389,7 @@
                             <input class="form-check-input" type="radio" name="templateRadios" id="radio-{{$type->id}}" value="{{$type->id}}" >
                             <label class="form-check-label" for="radio-{{$type->id}}">
                                 <div class="digest-type">{{$type->name}}</div>
-                                <img src="{{ URL::asset('/img/'.$type->image) }}" alt="">
+                                <img src="{{ asset('storage/photos/'.$type->image) }}" alt="">
                             </label>
                         </div>
                     </div>
@@ -402,6 +403,31 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.delete-digest-btn').on('click', function(e) {
+            e.preventDefault(); // Предотвращаем стандартное поведение кнопки
+            let digestId = $(this).data('id');
 
+            if (confirm('Вы уверены, что хотите удалить этот дайджест?')) {
+                $.ajax({
+                    url: '/digest/' + digestId,
+                    type: 'DELETE',
+                    data: {
+                        "_token": $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        alert('Дайджест успешно удален!');
+                        window.location.href = '/';
+                    },
+                    error: function(error) {
+                        alert('Ошибка при удалении дайджеста.');
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

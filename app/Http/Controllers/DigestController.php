@@ -80,12 +80,11 @@ class DigestController extends Controller
     public function update(Request $request, Digest $digest)
     {
         $news = $request->news;
-        //$json = json_encode($news);
         $digest->name = $request->name;
         $digest->news = $news;
         $digest->digest_type_id = $request->template;
+        $digest->status = 'published';
         $digest->save();
-        //parse_str($request->getContent(),$data);
         return response(200);
     }
 
@@ -95,6 +94,14 @@ class DigestController extends Controller
      * @param  \App\Digest  $digest
      * @return \Illuminate\Http\Response
      */
+    public function destroy(Digest $digest)
+    {
+        // Удаляем дайджест (SoftDelete)
+        $digest->delete();
+
+        // Возвращаем успешный ответ для фронтенда
+        return response(200);
+    }
     public function json($id)
     {
         $digest = Digest::find($id);

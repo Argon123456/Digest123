@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder {
     {
         DB::table('users')->delete();
 
-        User::create(['name' => 'admin','username' => 'admin', 'password' => Hash::make('ilovedigest'), 'email' => 'alexlisp@tut.by']);
+        User::create(['name' => 'admin','username' => 'admin', 'password' => Hash::make(' '), 'email' => 'romunogof@yandex.ru']);
     }
 
 }

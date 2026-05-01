@@ -25,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $digests = Digest::orderBy('created_at', 'desc')->get();
+        $digests = \App\Digest::where('status', 'published')
+            ->orderBy('created_at', 'desc')
+            ->get();
         $subs = Subscription::all();
         return view('home', ['digests' => $digests, 'subscriptions' => $subs]);
     }

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 })->middleware('auth');*/
 
 Route::resource('digest', 'DigestController')->only([
-    'create', 'show', 'update'
+    'create', 'show', 'update', 'destroy'
 ])->middleware('auth');
 Route::get('/digest/{id}/json', 'DigestController@json')->middleware('auth');
 
