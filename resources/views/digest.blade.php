@@ -177,13 +177,17 @@
                 line-height:100% !important;
             }
         }
+        body { font-family: 'RFDewi', sans-serif !important; }
+        .btn, .form-control, .types-wrapper { border-radius: 0 !important; }
+        .btn-primary { background-color: #d63f39 !important; border-color: #d63f39 !important; }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-2">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            Главная
+<nav class="navbar navbar-expand-md navbar-dark mb-2" style="background-color: #000000; border-bottom: 2px solid #d63f39;">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+            <img src="{{ asset('img/VDSLOGO.png') }}" height="30" alt="VDS" class="mr-2">
+            <span style="font-weight: normal;">DIGEST</span>
         </a>
     </div>
 </nav>

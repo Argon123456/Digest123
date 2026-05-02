@@ -18,7 +18,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <h4 >Список контактов</h4>
