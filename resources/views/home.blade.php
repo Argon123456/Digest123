@@ -27,12 +27,20 @@
                 <div class="card-header">Списки получателей</div>
                 <ul class="list-group list-group-flush">
                     @foreach($subscriptions as $sub)
-                        <li class="list-group-item"><a href="/subscriptions/{{$sub->id}}">{{$sub->name}} ({{$sub->short}})</a>
-                            @if($sub->id != 1)<a href="/subscriptions/{{$sub->id}}/edit"  type="button" class="close">
-                                <i  class="fas fa-pencil-alt fa-xs"></i>
-                            </a>
+                        <a href="{{ route('subscription', $sub->id) }}" class="list-group-item">
+                            {{$sub->name}} ({{$sub->short}})
+                            @if($sub->id != 1)
+                                <form action="{{ route('subscription.destroy', $sub) }}" method="POST"
+                                      style="display: inline;"
+                                      onsubmit="return confirm('Вы уверены, что хотите удалить этот список?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-dark btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             @endif
-                        </li>
+                        </a>
                     @endforeach
                 </ul>
             </div>

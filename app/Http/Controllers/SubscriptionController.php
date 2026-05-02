@@ -95,12 +95,23 @@ class SubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SubscriberList  $subscriberList
+     * @param \App\Subscription $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubscriberList $subscriberList)
+    public function destroy(Subscription $subscription)
     {
-        //
+        // Запрещаем удаление списка с id = 1 (основной список)
+        if ($subscription->id == 1) {
+            return redirect()->back()->with('error', 'Этот список нельзя удалить');
+        }
+
+        // Отвязываем все контакты от этого списка
+        $subscription->contacts()->detach();
+
+        // Удаляем сам список
+        $subscription->delete();
+
+        return redirect()->route('home')->with('success', 'Список успешно удалён');
     }
 
     public function json($id)

@@ -9,7 +9,7 @@ class Subscription extends Model
 {
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $table = 'subscriptions';
 
     public function contacts()
     {

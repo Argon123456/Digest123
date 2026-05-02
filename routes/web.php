@@ -68,6 +68,7 @@ Route::get('/subscriptions/{id}/json', 'SubscriptionController@json')->middlewar
 Route::get('/subscriptions/{id}/contacts', 'SubscriptionController@contacts')->middleware('auth')->name('subscriptionJson');
 Route::post('/subscriptions/{id}/subscribe', 'SubscriptionController@subscribe')->middleware('auth');
 Route::get('/subscriptions/{id}/unsubscribe/{contactId}', 'SubscriptionController@unsubscribe')->middleware('auth');
+Route::delete('/subscriptions/{subscription}', 'SubscriptionController@destroy')->middleware('auth')->name('subscription.destroy');
 
 Route::get('/companies/all', 'CompanyController@all')->middleware('auth')->name('company.all');
 Route::get('/companies/{company}/json', 'CompanyController@json')->middleware('auth')->name('company.json');
