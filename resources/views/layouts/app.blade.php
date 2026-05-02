@@ -1,42 +1,61 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
-    @font-face {
-        font-family: 'RFDewi';
-        src: local('RF Dewi'), local('RFDewi');
-    }
-
     body {
-        font-family: 'RFDewi', sans-serif !important;
-        background-color: #f4f6f9;
+        font-family: 'Inter', sans-serif !important;
+        background-color: #ffffff;
+        color: #000000;
     }
 
-    /* Черный хедер с красной полосой */
+    /* Черный навбар */
     .navbar-vds {
         background-color: #000000 !important;
-        border-bottom: 3px solid #d63f39 !important;
+        height: 70px;
+        border-bottom: 1px solid #333;
     }
 
-    /* Белый текст ссылок в хедере */
-    .navbar-vds .nav-link, .navbar-vds .navbar-brand {
+    /* Центрирование логотипа */
+    .navbar-center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-brand-text {
+        color: #ffffff !important;
+        font-weight: 800;
+        margin-left: 15px;
+        letter-spacing: -0.5px; /* Для Inter лучше чуть уменьшить трекинг в заголовках */
+        text-transform: uppercase;
+        font-size: 1.2rem;
+    }
+
+    /* Кнопки: строго черные */
+    .btn {
+        border-radius: 0 !important;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    .btn-primary {
+        background-color: #000000 !important;
+        border-color: #000000 !important;
         color: #ffffff !important;
     }
 
-    /* Красные кнопки и острые углы */
-    .btn-primary {
-        background-color: #d63f39 !important;
-        border-color: #d63f39 !important;
-        border-radius: 0 !important;
+    .btn-primary:hover {
+        background-color: #333333 !important;
+        border-color: #333333 !important;
     }
 
-    .btn {
-        border-radius: 0 !important;
-    }
-
-    /* Острые углы у карточек и полей */
     .card, .form-control, .list-group-item {
         border-radius: 0 !important;
-        border: none;
+        border: 1px solid #000;
     }
 </style>
 <head>
@@ -77,35 +96,30 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark navbar-vds shadow-sm">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <img src="{{ asset('img/VDSLOGO.png') }}" height="35" alt="VDS" class="mr-3">
-                    <span style="font-weight: normal; letter-spacing: 0.5px;">DIGEST</span>
+            <div class="container-fluid position-relative d-flex align-items-center">
+                <div class="navbar-nav mr-auto"></div>
+
+                <a class="navbar-center" href="{{ url('/') }}" style="text-decoration: none;">
+                    <img src="{{ asset('img/vds-logo-bw.png') }}" height="45" alt="VDS">
                 </a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        @auth
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                <div class="navbar-nav ml-auto">
+                    @auth
+                        <div class="dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="border-radius: 0; border: 1px solid #000;">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Выйти
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" style="border-radius: 0;">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Выйти
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endauth
-                    </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </nav>

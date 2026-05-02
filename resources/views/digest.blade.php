@@ -26,6 +26,22 @@
     <link rel="shortcut icon" href="{{ asset('/logo.png') }}">
     <script>var currentId = {{$digest->id}};</script>
     <style>
+        /* Импорт шрифта, если его нет в этом файле */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        body { font-family: 'Inter', sans-serif !important; background-color: #fff; }
+
+        /* Кнопки теперь черные */
+        .btn-primary { background-color: #000 !important; border-color: #000 !important; }
+        .btn-primary:hover { background-color: #333 !important; border-color: #333 !important; }
+        .btn-danger { background-color: #000 !important; color: #fff !important; border: 1px solid #000 !important; }
+        .btn-danger:hover { background-color: #333 !important; border-color: #333 !important; }
+
+        .btn, .form-control, .types-wrapper { border-radius: 0 !important; }
+
+        .navbar-vds { background-color: #000 !important; height: 70px; border-bottom: 1px solid #333; }
+        .navbar-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; }
+        .navbar-brand-text { color: #fff !important; font-weight: 800; margin-left: 15px; text-transform: uppercase; font-size: 1.2rem; }
         .types-wrapper{
             border: 1px #00000054 solid;
             margin: 10px 0px 30px 0px;
@@ -177,18 +193,20 @@
                 line-height:100% !important;
             }
         }
-        body { font-family: 'RFDewi', sans-serif !important; }
-        .btn, .form-control, .types-wrapper { border-radius: 0 !important; }
-        .btn-primary { background-color: #d63f39 !important; border-color: #d63f39 !important; }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark mb-2" style="background-color: #000000; border-bottom: 2px solid #d63f39;">
-    <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-            <img src="{{ asset('img/VDSLOGO.png') }}" height="30" alt="VDS" class="mr-2">
-            <span style="font-weight: normal;">DIGEST</span>
+<nav class="navbar navbar-expand-md navbar-dark navbar-vds shadow-sm mb-4">
+    <div class="container-fluid position-relative d-flex align-items-center">
+        <div class="navbar-nav mr-auto"></div>
+
+        <a class="navbar-center" href="{{ url('/') }}" style="text-decoration: none;">
+            <img src="{{ asset('img/vds-logo-bw.png') }}" height="45" alt="VDS">
         </a>
+
+        <div class="navbar-nav ml-auto">
+            <span class="text-muted small">Редактор дайджеста</span>
+        </div>
     </div>
 </nav>
 <div class="container-fluid">
